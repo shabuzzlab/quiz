@@ -98,6 +98,14 @@ function startQuiz() {
     currentQuestion = 0;
     scores = { red: 0, pink: 0, white: 0, yellow: 0, orange: 0, lavender: 0 };
     showQuestion();
+    
+    // Track quiz start
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'quiz_start', {
+            quiz_name: 'roses',
+            language: currentLanguage
+        });
+    }
 }
 
 // SHOW CURRENT QUESTION
@@ -263,9 +271,9 @@ function showResults() {
     // Update section titles if Thai
     if (currentLanguage === 'th') {
         console.log('Updating to Thai...'); // DEBUG
-        const scienceTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(1) h3');
-        const traitsTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(2) h3');
-        const realLifeTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(3) h3');
+        const scienceTitle = document.getElementById('scienceSectionTitle');
+        const traitsTitle = document.getElementById('traitsSectionTitle');
+        const realLifeTitle = document.getElementById('realLifeSectionTitle');
         const compatibilityTitle = document.querySelector('#compatibilitySection h3');
         const compatibilitySubtitle = document.querySelector('#compatibilitySection p');
         const partnerTitle = document.querySelector('.share-section h3');
@@ -306,9 +314,9 @@ function showResults() {
         `;
     } else {
         console.log('Updating to English...'); // DEBUG
-        const scienceTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(1) h3');
-        const traitsTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(2) h3');
-        const realLifeTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(3) h3');
+        const scienceTitle = document.getElementById('scienceSectionTitle');
+        const traitsTitle = document.getElementById('traitsSectionTitle');
+        const realLifeTitle = document.getElementById('realLifeSectionTitle');
         const compatibilityTitle = document.querySelector('#compatibilitySection h3');
         const compatibilitySubtitle = document.querySelector('#compatibilitySection p');
         const partnerTitle = document.querySelector('.share-section h3');
@@ -400,8 +408,114 @@ function showResults() {
     // Populate compatibility grid
     showCompatibilityGrid(resultColor);
     
+    // Populate screenshot summary card
+    showScreenshotCard(resultColor, result, calculatedTraits);
+    
+    // Track quiz completion
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'quiz_complete', {
+            quiz_name: 'roses',
+            result_color: resultColor,
+            language: currentLanguage
+        });
+    }
+    
+    // Track screenshot attempts
+    detectScreenshot();
+    
     // Scroll to top
     window.scrollTo(0, 0);
+}
+
+// POPULATE SCREENSHOT SUMMARY CARD
+function showScreenshotCard(userColor, result, traits) {
+    // Rose emoji and title
+    document.getElementById('screenshotRose').textContent = result.emoji;
+    document.getElementById('screenshotTitle').textContent = result.title;
+    document.getElementById('screenshotSubtitle').textContent = result.subtitle;
+    
+    // Traits (compact 2x2 grid)
+    const traitsContainer = document.getElementById('screenshotTraits');
+    traitsContainer.innerHTML = '';
+    
+    traits.forEach(trait => {
+        const traitDiv = document.createElement('div');
+        traitDiv.className = 'screenshot-trait-item';
+        
+        const traitName = currentLanguage === 'th'
+            ? [thaiTranslations.results.traitEnergy, thaiTranslations.results.traitEmpathy, 
+               thaiTranslations.results.traitLogic, thaiTranslations.results.traitCreativity][traits.indexOf(trait)]
+            : trait.name;
+        
+        traitDiv.innerHTML = `
+            <span class="screenshot-trait-name">${traitName}</span>
+            <span class="screenshot-trait-value">${trait.value}%</span>
+        `;
+        traitsContainer.appendChild(traitDiv);
+    });
+    
+    // Best matches (top 2)
+    const compat = roseCompatibility[userColor];
+    const topMatches = compat.perfect.slice(0, 2);
+    
+    const matchContainer = document.getElementById('screenshotMatchRoses');
+    matchContainer.innerHTML = '';
+    
+    // Update match title in current language
+    const matchTitle = document.getElementById('screenshotMatchTitle');
+    if (currentLanguage === 'th') {
+        matchTitle.textContent = '💕 คู่ที่ลงตัว';
+    } else {
+        matchTitle.textContent = '💕 Best Match';
+    }
+    
+    topMatches.forEach(matchColor => {
+        const matchDiv = document.createElement('div');
+        matchDiv.className = 'screenshot-match-rose';
+        
+        const matchName = currentLanguage === 'th'
+            ? thaiTranslations.roses[matchColor].title
+            : roseResults[matchColor].title;
+        
+        matchDiv.innerHTML = `
+            <div class="screenshot-match-emoji">${roseResults[matchColor].emoji}</div>
+            <div class="screenshot-match-name">${matchName}</div>
+        `;
+        matchContainer.appendChild(matchDiv);
+    });
+}
+
+// DETECT SCREENSHOT ATTEMPTS
+function detectScreenshot() {
+    // Method 1: Visibility change (works on some mobile browsers)
+    document.addEventListener('visibilitychange', function() {
+        if (document.visibilityState === 'hidden') {
+            // User might be taking screenshot
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'screenshot_attempt', {
+                    quiz_name: 'roses',
+                    result_color: calculateResult(),
+                    detection_method: 'visibility_change'
+                });
+            }
+        }
+    });
+    
+    // Method 2: Key combinations (desktop)
+    document.addEventListener('keyup', function(e) {
+        // Windows: PrintScreen, Alt+PrintScreen, Win+Shift+S
+        // Mac: Cmd+Shift+3, Cmd+Shift+4
+        if (e.key === 'PrintScreen' || 
+            (e.metaKey && e.shiftKey && (e.key === '3' || e.key === '4'))) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'screenshot_attempt', {
+                    quiz_name: 'roses',
+                    result_color: calculateResult(),
+                    detection_method: 'keyboard_shortcut'
+                });
+            }
+        }
+    });
 }
 
 // SHOW COMPATIBILITY GRID
@@ -446,11 +560,19 @@ function showCompatibilityGrid(userColor) {
 
 // SHARE FUNCTIONS
 function shareInstagram() {
-    // Copy link
+    const resultColor = calculateResult();
     const url = 'https://quiz.shabuzz.com/roses';
     navigator.clipboard.writeText(url);
     
-    // Show instruction modal
+    // Track share
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'share', {
+            method: 'instagram',
+            quiz_name: 'roses',
+            result_color: resultColor
+        });
+    }
+    
     showShareInstructions('Instagram Story', [
         '1. Screenshot your result above 📸',
         '2. Open Instagram app',
@@ -462,11 +584,19 @@ function shareInstagram() {
 }
 
 function shareTikTok() {
-    // Copy link
+    const resultColor = calculateResult();
     const url = 'https://quiz.shabuzz.com/roses';
     navigator.clipboard.writeText(url);
     
-    // Show instruction modal
+    // Track share
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'share', {
+            method: 'tiktok',
+            quiz_name: 'roses',
+            result_color: resultColor
+        });
+    }
+    
     showShareInstructions('TikTok', [
         '1. Screenshot your result above 📸',
         '2. Open TikTok app',
@@ -542,11 +672,32 @@ function shareTwitter() {
     const result = roseResults[resultColor];
     const text = `I'm a ${result.title} ${result.emoji}\n\n${result.subtitle}\n\nWhat rose color are you? Take the quiz:`;
     const url = 'https://quiz.shabuzz.com/roses';
+    
+    // Track share
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'share', {
+            method: 'twitter',
+            quiz_name: 'roses',
+            result_color: resultColor
+        });
+    }
+    
     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
 }
 
 function shareFacebook() {
+    const resultColor = calculateResult();
     const url = 'https://quiz.shabuzz.com/roses';
+    
+    // Track share
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'share', {
+            method: 'facebook',
+            quiz_name: 'roses',
+            result_color: resultColor
+        });
+    }
+    
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
 }
 
@@ -554,6 +705,15 @@ function shareWhatsApp() {
     const resultColor = calculateResult();
     const result = roseResults[resultColor];
     const text = `I'm a ${result.title} ${result.emoji}\n\n${result.subtitle}\n\nWhat rose color are you? Take the quiz: https://quiz.shabuzz.com/roses`;
+    
+    // Track share
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'share', {
+            method: 'whatsapp',
+            quiz_name: 'roses',
+            result_color: resultColor
+        });
+    }
     
     // Use Web Share API if available (better for mobile)
     if (navigator.share) {
@@ -571,7 +731,18 @@ function shareWhatsApp() {
 }
 
 function copyLink() {
+    const resultColor = calculateResult();
     const url = 'https://quiz.shabuzz.com/roses';
+    
+    // Track share
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'share', {
+            method: 'copy_link',
+            quiz_name: 'roses',
+            result_color: resultColor
+        });
+    }
+    
     navigator.clipboard.writeText(url).then(() => {
         const btn = event.target;
         const originalText = btn.textContent;
