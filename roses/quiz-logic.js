@@ -305,6 +305,7 @@ function showResults() {
             ${thaiTranslations.results.brandingTagline}
         `;
     } else {
+        console.log('Updating to English...'); // DEBUG
         const scienceTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(1) h3');
         const traitsTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(2) h3');
         const realLifeTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(3) h3');
@@ -313,9 +314,11 @@ function showResults() {
         const partnerTitle = document.querySelector('.share-section h3');
         const partnerSubtitle = document.querySelector('.share-section p');
         
+        console.log('English elements found:', {scienceTitle, traitsTitle, realLifeTitle, compatibilityTitle}); // DEBUG
+        
         if (scienceTitle) scienceTitle.textContent = "🔬 Why This Matters";
         if (traitsTitle) traitsTitle.textContent = "💫 Your Superpowers";
-        if (realLifeTitle) realLifeTitle.textContent = "❤️ What This Means IRL";
+        if (realLifeTitle) realLifeTitle.textContent = "❤️ In Real Life";
         if (compatibilityTitle) compatibilityTitle.textContent = "💕 Which Rose Matches Yours?";
         if (compatibilitySubtitle) compatibilitySubtitle.textContent = "Send the quiz to your partner and find your compatibility!";
         if (partnerTitle) partnerTitle.textContent = "🔥 Challenge Your Partner";
@@ -421,8 +424,15 @@ function showCompatibilityGrid(userColor) {
         card.className = `compatibility-card ${match.level}`;
         
         const emoji = roseResults[match.color].emoji;
-        const name = roseResults[match.color].title;
-        const description = compat.descriptions[match.color];
+        
+        // Get name and description in current language
+        const name = currentLanguage === 'th' 
+            ? thaiTranslations.roses[match.color].title
+            : roseResults[match.color].title;
+            
+        const description = currentLanguage === 'th'
+            ? thaiCompatibilityDescriptions[userColor][match.color]
+            : compat.descriptions[match.color];
         
         card.innerHTML = `
             <div class="compatibility-emoji">${emoji}</div>
