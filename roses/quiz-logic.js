@@ -190,12 +190,51 @@ function calculateResult() {
     return resultColor;
 }
 
+// CALCULATE TRAIT PERCENTAGES FROM SCORES
+function calculateTraitPercentages() {
+    // Base calculations from Big 5 personality mapping
+    // Energy = extroversion indicators
+    // Empathy = agreeableness indicators  
+    // Logic = conscientiousness indicators
+    // Creativity = openness indicators
+    
+    const totalPossible = quizData.length * 3; // Max score per color
+    
+    // Energy: Red + Orange scores (action-oriented)
+    const energyRaw = scores.red + scores.orange;
+    const energy = Math.min(95, Math.max(50, Math.round((energyRaw / (totalPossible * 0.5)) * 100)));
+    
+    // Empathy: Pink score (empathy-focused)
+    const empathyRaw = scores.pink;
+    const empathy = Math.min(95, Math.max(50, Math.round((empathyRaw / (totalPossible * 0.25)) * 100)));
+    
+    // Logic: White score (analytical)
+    const logicRaw = scores.white;
+    const logic = Math.min(95, Math.max(50, Math.round((logicRaw / (totalPossible * 0.25)) * 100)));
+    
+    // Creativity: Yellow + Lavender scores (creative/imaginative)
+    const creativityRaw = scores.yellow + scores.lavender;
+    const creativity = Math.min(95, Math.max(50, Math.round((creativityRaw / (totalPossible * 0.5)) * 100)));
+    
+    return [
+        { name: "Energy Level", value: energy },
+        { name: "Empathy", value: empathy },
+        { name: "Logic", value: logic },
+        { name: "Creativity", value: creativity }
+    ];
+}
+
 // SHOW RESULTS
 function showResults() {
     console.log('showResults called'); // DEBUG
     
     const resultColor = calculateResult();
     console.log('Result color:', resultColor); // DEBUG
+    console.log('Scores:', scores); // DEBUG
+    
+    // Calculate dynamic trait percentages
+    const calculatedTraits = calculateTraitPercentages();
+    console.log('Calculated traits:', calculatedTraits); // DEBUG
     
     const result = currentLanguage === 'th' 
         ? {
@@ -204,10 +243,13 @@ function showResults() {
             title: thaiTranslations.roses[resultColor].title,
             subtitle: thaiTranslations.roses[resultColor].subtitle,
             science: thaiTranslations.roses[resultColor].science,
-            traits: roseResults[resultColor].traits,
+            traits: calculatedTraits, // Use calculated instead of fixed
             realLife: thaiTranslations.roses[resultColor].realLife
         }
-        : roseResults[resultColor];
+        : {
+            ...roseResults[resultColor],
+            traits: calculatedTraits // Use calculated instead of fixed
+        };
     
     console.log('Result object:', result); // DEBUG
     
@@ -220,6 +262,7 @@ function showResults() {
     
     // Update section titles if Thai
     if (currentLanguage === 'th') {
+        console.log('Updating to Thai...'); // DEBUG
         const scienceTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(1) h3');
         const traitsTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(2) h3');
         const realLifeTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(3) h3');
@@ -227,6 +270,8 @@ function showResults() {
         const compatibilitySubtitle = document.querySelector('#compatibilitySection p');
         const partnerTitle = document.querySelector('.share-section h3');
         const partnerSubtitle = document.querySelector('.share-section p');
+        
+        console.log('Thai elements found:', {scienceTitle, traitsTitle, realLifeTitle, compatibilityTitle}); // DEBUG
         
         if (scienceTitle) scienceTitle.textContent = thaiTranslations.results.scienceTitle;
         if (traitsTitle) traitsTitle.textContent = thaiTranslations.results.traitsTitle;
