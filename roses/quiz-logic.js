@@ -223,12 +223,16 @@ function showResults() {
         const scienceTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(1) h3');
         const traitsTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(2) h3');
         const realLifeTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(3) h3');
+        const compatibilityTitle = document.querySelector('#compatibilitySection h3');
+        const compatibilitySubtitle = document.querySelector('#compatibilitySection p');
         const partnerTitle = document.querySelector('.share-section h3');
         const partnerSubtitle = document.querySelector('.share-section p');
         
         if (scienceTitle) scienceTitle.textContent = thaiTranslations.results.scienceTitle;
         if (traitsTitle) traitsTitle.textContent = thaiTranslations.results.traitsTitle;
         if (realLifeTitle) realLifeTitle.textContent = thaiTranslations.results.realLifeTitle;
+        if (compatibilityTitle) compatibilityTitle.textContent = thaiTranslations.results.compatibilityTitle;
+        if (compatibilitySubtitle) compatibilitySubtitle.textContent = thaiTranslations.results.compatibilitySubtitle;
         if (partnerTitle) partnerTitle.textContent = thaiTranslations.results.partnerTitle;
         if (partnerSubtitle) partnerSubtitle.textContent = thaiTranslations.results.partnerSubtitle;
         
@@ -259,12 +263,16 @@ function showResults() {
         const scienceTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(1) h3');
         const traitsTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(2) h3');
         const realLifeTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(3) h3');
+        const compatibilityTitle = document.querySelector('#compatibilitySection h3');
+        const compatibilitySubtitle = document.querySelector('#compatibilitySection p');
         const partnerTitle = document.querySelector('.share-section h3');
         const partnerSubtitle = document.querySelector('.share-section p');
         
         if (scienceTitle) scienceTitle.textContent = "🔬 Why This Matters";
         if (traitsTitle) traitsTitle.textContent = "💫 Your Superpowers";
         if (realLifeTitle) realLifeTitle.textContent = "❤️ What This Means IRL";
+        if (compatibilityTitle) compatibilityTitle.textContent = "💕 Which Rose Matches Yours?";
+        if (compatibilitySubtitle) compatibilitySubtitle.textContent = "Send the quiz to your partner and find your compatibility!";
         if (partnerTitle) partnerTitle.textContent = "🔥 Challenge Your Partner";
         if (partnerSubtitle) partnerSubtitle.textContent = "Share your result and see if you're compatible (or totally opposite 😂)";
         
