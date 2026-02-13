@@ -227,7 +227,10 @@ function showResults() {
         document.querySelector('.share-section p').textContent = thaiTranslations.results.partnerSubtitle;
         
         // Update share buttons
+        document.querySelector('.share-instagram').textContent = "📸 Instagram Story";
+        document.querySelector('.share-tiktok').textContent = "🎵 TikTok";
         document.querySelector('.share-twitter').textContent = thaiTranslations.results.shareTwitter;
+        document.querySelector('.share-facebook').textContent = "📘 Facebook";
         document.querySelector('.share-whatsapp').textContent = thaiTranslations.results.shareWhatsApp;
         document.querySelector('.share-copy').textContent = thaiTranslations.results.shareCopy;
         
@@ -244,11 +247,14 @@ function showResults() {
         document.querySelector('#resultsScreen .result-section:nth-of-type(2) h3').textContent = "💫 Your Superpowers";
         document.querySelector('#resultsScreen .result-section:nth-of-type(3) h3').textContent = "❤️ What This Means IRL";
         document.querySelector('.share-section h3').textContent = "🔥 Challenge Your Partner";
-        document.querySelector('.share-section p').textContent = "Send them the quiz and see if you're compatible (or totally opposite 😂)";
+        document.querySelector('.share-section p').textContent = "Share your result and see if you're compatible (or totally opposite 😂)";
         
-        document.querySelector('.share-twitter').textContent = "Tweet It";
-        document.querySelector('.share-whatsapp').textContent = "Send to Partner";
-        document.querySelector('.share-copy').textContent = "Copy Link";
+        document.querySelector('.share-instagram').textContent = "📸 Instagram Story";
+        document.querySelector('.share-tiktok').textContent = "🎵 TikTok";
+        document.querySelector('.share-twitter').textContent = "𝕏 Tweet";
+        document.querySelector('.share-facebook').textContent = "📘 Facebook";
+        document.querySelector('.share-whatsapp').textContent = "💬 WhatsApp";
+        document.querySelector('.share-copy').textContent = "🔗 Copy Link";
         
         document.querySelector('.results-screen > .btn').textContent = "Retake Quiz 🔄";
         

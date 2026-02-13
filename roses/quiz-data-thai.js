@@ -156,6 +156,7 @@ const thaiTranslations = {
         partnerTitle: "🔥 ท้าคู่ของคุณ",
         partnerSubtitle: "ส่งแบบทดสอบให้เขาและดูว่าเข้ากันหรือตรงข้ามสุดๆ 😂",
         shareTwitter: "ทวีต",
+        shareFacebook: "แชร์ Facebook",
         shareWhatsApp: "ส่งให้คู่",
         shareCopy: "คัดลอกลิงก์",
         retakeButton: "ทำใหม่ 🔄",
