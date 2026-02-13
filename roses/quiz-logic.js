@@ -220,19 +220,32 @@ function showResults() {
     
     // Update section titles if Thai
     if (currentLanguage === 'th') {
-        document.querySelector('#resultsScreen .result-section:nth-of-type(1) h3').textContent = thaiTranslations.results.scienceTitle;
-        document.querySelector('#resultsScreen .result-section:nth-of-type(2) h3').textContent = thaiTranslations.results.traitsTitle;
-        document.querySelector('#resultsScreen .result-section:nth-of-type(3) h3').textContent = thaiTranslations.results.realLifeTitle;
-        document.querySelector('.share-section h3').textContent = thaiTranslations.results.partnerTitle;
-        document.querySelector('.share-section p').textContent = thaiTranslations.results.partnerSubtitle;
+        const scienceTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(1) h3');
+        const traitsTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(2) h3');
+        const realLifeTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(3) h3');
+        const partnerTitle = document.querySelector('.share-section h3');
+        const partnerSubtitle = document.querySelector('.share-section p');
+        
+        if (scienceTitle) scienceTitle.textContent = thaiTranslations.results.scienceTitle;
+        if (traitsTitle) traitsTitle.textContent = thaiTranslations.results.traitsTitle;
+        if (realLifeTitle) realLifeTitle.textContent = thaiTranslations.results.realLifeTitle;
+        if (partnerTitle) partnerTitle.textContent = thaiTranslations.results.partnerTitle;
+        if (partnerSubtitle) partnerSubtitle.textContent = thaiTranslations.results.partnerSubtitle;
         
         // Update share buttons
-        document.querySelector('.share-instagram').textContent = "📸 Instagram Story";
-        document.querySelector('.share-tiktok').textContent = "🎵 TikTok";
-        document.querySelector('.share-twitter').textContent = thaiTranslations.results.shareTwitter;
-        document.querySelector('.share-facebook').textContent = "📘 Facebook";
-        document.querySelector('.share-whatsapp').textContent = thaiTranslations.results.shareWhatsApp;
-        document.querySelector('.share-copy').textContent = thaiTranslations.results.shareCopy;
+        const btnInstagram = document.querySelector('.share-instagram');
+        const btnTikTok = document.querySelector('.share-tiktok');
+        const btnTwitter = document.querySelector('.share-twitter');
+        const btnFacebook = document.querySelector('.share-facebook');
+        const btnWhatsApp = document.querySelector('.share-whatsapp');
+        const btnCopy = document.querySelector('.share-copy');
+        
+        if (btnInstagram) btnInstagram.textContent = "📸 Instagram Story";
+        if (btnTikTok) btnTikTok.textContent = "🎵 TikTok";
+        if (btnTwitter) btnTwitter.textContent = thaiTranslations.results.shareTwitter;
+        if (btnFacebook) btnFacebook.textContent = "📘 Facebook";
+        if (btnWhatsApp) btnWhatsApp.textContent = thaiTranslations.results.shareWhatsApp;
+        if (btnCopy) btnCopy.textContent = thaiTranslations.results.shareCopy;
         
         // Update restart button
         document.querySelector('.results-screen > .btn').textContent = thaiTranslations.results.retakeButton;
@@ -243,25 +256,41 @@ function showResults() {
             ${thaiTranslations.results.brandingTagline}
         `;
     } else {
-        document.querySelector('#resultsScreen .result-section:nth-of-type(1) h3').textContent = "🔬 Why This Matters";
-        document.querySelector('#resultsScreen .result-section:nth-of-type(2) h3').textContent = "💫 Your Superpowers";
-        document.querySelector('#resultsScreen .result-section:nth-of-type(3) h3').textContent = "❤️ What This Means IRL";
-        document.querySelector('.share-section h3').textContent = "🔥 Challenge Your Partner";
-        document.querySelector('.share-section p').textContent = "Share your result and see if you're compatible (or totally opposite 😂)";
+        const scienceTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(1) h3');
+        const traitsTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(2) h3');
+        const realLifeTitle = document.querySelector('#resultsScreen .result-section:nth-of-type(3) h3');
+        const partnerTitle = document.querySelector('.share-section h3');
+        const partnerSubtitle = document.querySelector('.share-section p');
         
-        document.querySelector('.share-instagram').textContent = "📸 Instagram Story";
-        document.querySelector('.share-tiktok').textContent = "🎵 TikTok";
-        document.querySelector('.share-twitter').textContent = "𝕏 Tweet";
-        document.querySelector('.share-facebook').textContent = "📘 Facebook";
-        document.querySelector('.share-whatsapp').textContent = "💬 WhatsApp";
-        document.querySelector('.share-copy').textContent = "🔗 Copy Link";
+        if (scienceTitle) scienceTitle.textContent = "🔬 Why This Matters";
+        if (traitsTitle) traitsTitle.textContent = "💫 Your Superpowers";
+        if (realLifeTitle) realLifeTitle.textContent = "❤️ What This Means IRL";
+        if (partnerTitle) partnerTitle.textContent = "🔥 Challenge Your Partner";
+        if (partnerSubtitle) partnerSubtitle.textContent = "Share your result and see if you're compatible (or totally opposite 😂)";
         
-        document.querySelector('.results-screen > .btn').textContent = "Retake Quiz 🔄";
+        const btnInstagram = document.querySelector('.share-instagram');
+        const btnTikTok = document.querySelector('.share-tiktok');
+        const btnTwitter = document.querySelector('.share-twitter');
+        const btnFacebook = document.querySelector('.share-facebook');
+        const btnWhatsApp = document.querySelector('.share-whatsapp');
+        const btnCopy = document.querySelector('.share-copy');
+        const btnRetake = document.querySelector('.results-screen > .btn');
+        const branding = document.querySelector('.branding');
         
-        document.querySelector('.branding').innerHTML = `
-            🍲 Cooked up by <a href="https://shabuzz.com" target="_blank">shabuzzlab</a><br>
-            We make tech startups go viral
-        `;
+        if (btnInstagram) btnInstagram.textContent = "📸 Instagram Story";
+        if (btnTikTok) btnTikTok.textContent = "🎵 TikTok";
+        if (btnTwitter) btnTwitter.textContent = "𝕏 Tweet";
+        if (btnFacebook) btnFacebook.textContent = "📘 Facebook";
+        if (btnWhatsApp) btnWhatsApp.textContent = "💬 WhatsApp";
+        if (btnCopy) btnCopy.textContent = "🔗 Copy Link";
+        if (btnRetake) btnRetake.textContent = "Retake Quiz 🔄";
+        
+        if (branding) {
+            branding.innerHTML = `
+                🍲 Cooked up by <a href="https://shabuzz.com" target="_blank">shabuzzlab</a><br>
+                We make tech startups go viral
+            `;
+        }
     }
     
     // Populate results
@@ -318,20 +347,94 @@ function showResults() {
 
 // SHARE FUNCTIONS
 function shareInstagram() {
-    // Instagram doesn't support direct web sharing with text
-    // Copy link and prompt user to share to IG Story
+    // Copy link
     const url = 'https://quiz.shabuzz.com/roses';
-    navigator.clipboard.writeText(url).then(() => {
-        alert('✅ Link copied!\n\nNow:\n1. Open Instagram\n2. Create a Story\n3. Add text/sticker\n4. Paste the link\n\nPro tip: Screenshot your result first! 📸');
-    });
+    navigator.clipboard.writeText(url);
+    
+    // Show instruction modal
+    showShareInstructions('Instagram Story', [
+        '1. Screenshot your result above 📸',
+        '2. Open Instagram app',
+        '3. Create a new Story',
+        '4. Upload the screenshot',
+        '5. Add link sticker (swipe up)',
+        '6. Paste: ' + url
+    ]);
 }
 
 function shareTikTok() {
-    // TikTok doesn't support direct web sharing
-    // Copy link and prompt user
+    // Copy link
     const url = 'https://quiz.shabuzz.com/roses';
-    navigator.clipboard.writeText(url).then(() => {
-        alert('✅ Link copied!\n\nNow:\n1. Open TikTok\n2. Create a video about your result\n3. Paste link in caption or bio\n\n🔥 Make it go viral!');
+    navigator.clipboard.writeText(url);
+    
+    // Show instruction modal
+    showShareInstructions('TikTok', [
+        '1. Screenshot your result above 📸',
+        '2. Open TikTok app',
+        '3. Create a video about your rose color',
+        '4. Add the screenshot to your video',
+        '5. In caption, paste: ' + url,
+        '6. Use hashtags: #RoseQuiz #PersonalityTest'
+    ]);
+}
+
+function showShareInstructions(platform, steps) {
+    // Create modal overlay
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    `;
+    
+    // Create modal content
+    const content = document.createElement('div');
+    content.style.cssText = `
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        max-width: 500px;
+        width: 100%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    `;
+    
+    // Build instructions HTML
+    const stepsHTML = steps.map(step => `<li style="margin: 10px 0; line-height: 1.6;">${step}</li>`).join('');
+    
+    content.innerHTML = `
+        <h3 style="color: #C41E3A; margin-bottom: 15px; font-size: 1.5rem;">
+            📱 Share to ${platform}
+        </h3>
+        <p style="color: #6B4E4E; margin-bottom: 20px; background: #FFF5F5; padding: 10px; border-radius: 8px;">
+            ✅ Link copied to clipboard!
+        </p>
+        <ol style="color: #2C1810; padding-left: 20px; margin: 20px 0;">
+            ${stepsHTML}
+        </ol>
+        <button onclick="this.closest('div[style*=fixed]').remove()" 
+                style="width: 100%; padding: 15px; background: linear-gradient(135deg, #C41E3A 0%, #E0527D 100%); 
+                       color: white; border: none; border-radius: 50px; font-size: 1.1rem; cursor: pointer; 
+                       font-family: Georgia, serif; margin-top: 20px;">
+            Got it! 👍
+        </button>
+    `;
+    
+    modal.appendChild(content);
+    document.body.appendChild(modal);
+    
+    // Close on background click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.remove();
+        }
     });
 }
 
