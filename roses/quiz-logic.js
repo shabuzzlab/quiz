@@ -232,7 +232,7 @@ function showResults() {
         if (partnerTitle) partnerTitle.textContent = thaiTranslations.results.partnerTitle;
         if (partnerSubtitle) partnerSubtitle.textContent = thaiTranslations.results.partnerSubtitle;
         
-        // Update share buttons
+        // Update share buttons - Keep in English for clarity
         const btnInstagram = document.querySelector('.share-instagram');
         const btnTikTok = document.querySelector('.share-tiktok');
         const btnTwitter = document.querySelector('.share-twitter');
@@ -242,10 +242,10 @@ function showResults() {
         
         if (btnInstagram) btnInstagram.textContent = "📸 Instagram Story";
         if (btnTikTok) btnTikTok.textContent = "🎵 TikTok";
-        if (btnTwitter) btnTwitter.textContent = thaiTranslations.results.shareTwitter;
+        if (btnTwitter) btnTwitter.textContent = "𝕏 Tweet";
         if (btnFacebook) btnFacebook.textContent = "📘 Facebook";
-        if (btnWhatsApp) btnWhatsApp.textContent = thaiTranslations.results.shareWhatsApp;
-        if (btnCopy) btnCopy.textContent = thaiTranslations.results.shareCopy;
+        if (btnWhatsApp) btnWhatsApp.textContent = "💬 WhatsApp";
+        if (btnCopy) btnCopy.textContent = "🔗 Copy Link";
         
         // Update restart button
         document.querySelector('.results-screen > .btn').textContent = thaiTranslations.results.retakeButton;
@@ -341,8 +341,44 @@ function showResults() {
         realLifeList.appendChild(li);
     });
     
+    // Populate compatibility grid
+    showCompatibilityGrid(resultColor);
+    
     // Scroll to top
     window.scrollTo(0, 0);
+}
+
+// SHOW COMPATIBILITY GRID
+function showCompatibilityGrid(userColor) {
+    const compat = roseCompatibility[userColor];
+    const grid = document.getElementById('compatibilityGrid');
+    grid.className = 'compatibility-grid';
+    grid.innerHTML = '';
+    
+    // Get all roses sorted by match quality
+    const allRoses = [
+        ...compat.perfect.map(c => ({color: c, level: 'perfect'})),
+        ...compat.great.map(c => ({color: c, level: 'great'})),
+        ...compat.good.map(c => ({color: c, level: 'good'}))
+    ];
+    
+    // Show top 4 matches
+    allRoses.slice(0, 4).forEach(match => {
+        const card = document.createElement('div');
+        card.className = `compatibility-card ${match.level}`;
+        
+        const emoji = roseResults[match.color].emoji;
+        const name = roseResults[match.color].title;
+        const description = compat.descriptions[match.color];
+        
+        card.innerHTML = `
+            <div class="compatibility-emoji">${emoji}</div>
+            <div class="compatibility-name">${name}</div>
+            <div class="compatibility-match">${description}</div>
+        `;
+        
+        grid.appendChild(card);
+    });
 }
 
 // SHARE FUNCTIONS
@@ -406,8 +442,8 @@ function showShareInstructions(platform, steps) {
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     `;
     
-    // Build instructions HTML
-    const stepsHTML = steps.map(step => `<li style="margin: 10px 0; line-height: 1.6;">${step}</li>`).join('');
+    // Build instructions HTML - use div instead of ol to avoid double numbering
+    const stepsHTML = steps.map(step => `<div style="margin: 10px 0; line-height: 1.6; color: #2C1810;">${step}</div>`).join('');
     
     content.innerHTML = `
         <h3 style="color: #C41E3A; margin-bottom: 15px; font-size: 1.5rem;">
@@ -416,9 +452,9 @@ function showShareInstructions(platform, steps) {
         <p style="color: #6B4E4E; margin-bottom: 20px; background: #FFF5F5; padding: 10px; border-radius: 8px;">
             ✅ Link copied to clipboard!
         </p>
-        <ol style="color: #2C1810; padding-left: 20px; margin: 20px 0;">
+        <div style="margin: 20px 0;">
             ${stepsHTML}
-        </ol>
+        </div>
         <button onclick="this.closest('div[style*=fixed]').remove()" 
                 style="width: 100%; padding: 15px; background: linear-gradient(135deg, #C41E3A 0%, #E0527D 100%); 
                        color: white; border: none; border-radius: 50px; font-size: 1.1rem; cursor: pointer; 

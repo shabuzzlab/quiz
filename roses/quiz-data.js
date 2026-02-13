@@ -245,3 +245,85 @@ const roseResults = {
         ]
     }
 };
+
+// ROSE COMPATIBILITY MATRIX
+const roseCompatibility = {
+    red: {
+        perfect: ['yellow', 'pink'],
+        great: ['orange', 'white'],
+        good: ['lavender', 'red'],
+        descriptions: {
+            yellow: '🔥 Perfect Match - You bring action, they bring creativity',
+            pink: '💕 Perfect Match - Your drive meets their empathy',
+            orange: '⚡ Great Match - Double the energy, unstoppable together',
+            white: '🎯 Great Match - Your passion + their precision = power couple',
+            lavender: '✨ Good Match - Opposites attract, balance each other',
+            red: '🔴 Intense - Two leaders, electric but competitive'
+        }
+    },
+    pink: {
+        perfect: ['red', 'lavender'],
+        great: ['white', 'yellow'],
+        good: ['orange', 'pink'],
+        descriptions: {
+            red: '💕 Perfect Match - They lead, you support = dream team',
+            lavender: '🌙 Perfect Match - Deep emotional connection',
+            white: '💫 Great Match - Your heart + their mind = balanced',
+            yellow: '☀️ Great Match - Joy + care = happiness overload',
+            orange: '🎢 Good Match - You ground their wild energy',
+            pink: '💗 Good Match - So much love, might be too sweet'
+        }
+    },
+    white: {
+        perfect: ['lavender', 'pink'],
+        great: ['red', 'yellow'],
+        good: ['orange', 'white'],
+        descriptions: {
+            lavender: '🧠 Perfect Match - Intellectual soulmates',
+            pink: '💫 Perfect Match - Logic meets empathy beautifully',
+            red: '🎯 Great Match - Precision + passion = unstoppable',
+            yellow: '🌟 Great Match - Structure + creativity = innovation',
+            orange: '⚖️ Good Match - You plan, they improvise',
+            white: '📊 Good Match - Logical duo, but needs spontaneity'
+        }
+    },
+    yellow: {
+        perfect: ['red', 'orange'],
+        great: ['pink', 'white'],
+        good: ['lavender', 'yellow'],
+        descriptions: {
+            red: '🔥 Perfect Match - Your ideas + their execution = magic',
+            orange: '🎨 Perfect Match - Creative chaos in the best way',
+            pink: '☀️ Great Match - Optimism + care = pure joy',
+            white: '🌟 Great Match - Innovation + execution = success',
+            lavender: '🌈 Good Match - Different worlds, beautiful blend',
+            yellow: '⭐ Good Match - Double creativity, but needs grounding'
+        }
+    },
+    orange: {
+        perfect: ['yellow', 'red'],
+        great: ['lavender', 'pink'],
+        good: ['white', 'orange'],
+        descriptions: {
+            yellow: '🎨 Perfect Match - Adventure + creativity = legendary',
+            red: '⚡ Perfect Match - Double fire, unstoppable force',
+            lavender: '🌊 Great Match - You energize, they deepen',
+            pink: '💗 Great Match - Wild + caring = balanced passion',
+            white: '⚖️ Good Match - Spontaneity meets structure',
+            orange: '🔥 Good Match - Too much adrenaline? Maybe. Fun? Definitely.'
+        }
+    },
+    lavender: {
+        perfect: ['white', 'pink'],
+        great: ['yellow', 'orange'],
+        good: ['red', 'lavender'],
+        descriptions: {
+            white: '🧠 Perfect Match - Deep thinkers, soulmate level',
+            pink: '🌙 Perfect Match - Emotional understanding',
+            yellow: '🌈 Great Match - You reflect, they create',
+            orange: '🌊 Great Match - They bring adventure to your depth',
+            red: '✨ Good Match - Complete opposites, intriguing dynamic',
+            lavender: '🔮 Good Match - Beautiful but need external energy'
+        }
+    }
+};

@@ -289,6 +289,59 @@
             left: 0;
         }
 
+        /* COMPATIBILITY GRID */
+        .compatibility-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .compatibility-card {
+            background: #FFF5F5;
+            border: 2px solid #FFE4E9;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .compatibility-card.perfect {
+            border-color: #00ff9d;
+            background: linear-gradient(135deg, #f0fff8 0%, #e6fff3 100%);
+        }
+
+        .compatibility-card.great {
+            border-color: #FFB6C1;
+            background: linear-gradient(135deg, #fff5f7 0%, #ffe4e9 100%);
+        }
+
+        .compatibility-card.good {
+            border-color: #E0A899;
+        }
+
+        .compatibility-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+        }
+
+        .compatibility-name {
+            font-weight: bold;
+            color: #C41E3A;
+            margin-bottom: 5px;
+        }
+
+        .compatibility-match {
+            font-size: 0.85rem;
+            color: #6B4E4E;
+        }
+
+        @media (max-width: 600px) {
+            .compatibility-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .traits-bars {
             margin-top: 20px;
         }
@@ -505,6 +558,12 @@
             <div class="result-section">
                 <h3>❤️ In Real Life</h3>
                 <ul id="realLifeTraits"></ul>
+            </div>
+
+            <div class="result-section" id="compatibilitySection">
+                <h3>💕 Which Rose Matches Yours?</h3>
+                <p style="margin-bottom: 15px; color: #4A3636;">Send the quiz to your partner and find your compatibility!</p>
+                <div id="compatibilityGrid"></div>
             </div>
 
             <div class="share-section">
