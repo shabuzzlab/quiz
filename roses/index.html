@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Rose Color Are You? 🌹 Valentine's Day Quiz</title>
+    <meta name="description" content="Discover your rose color based on science-backed personality traits. Perfect for Valentine's Day 2026!">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="What Rose Color Are You? 🌹">
+    <meta property="og:description" content="Science-backed personality quiz reveals your perfect rose color. Take the quiz and compare with your partner!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://quiz.shabuzz.com/roses">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #FFF5F5 0%, #FFE4E9 100%);
+            color: #2C1810;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* LANGUAGE TOGGLE */
+        .language-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            background: white;
+            padding: 8px 12px;
+            border-radius: 25px;
+            box-shadow: 0 4px 15px rgba(196, 30, 58, 0.15);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            color: #6B4E4E;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, #C41E3A 0%, #E0527D 100%);
+            color: white;
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: #FFF5F5;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 40px rgba(196, 30, 58, 0.15);
+        }
+
+        /* INTRO SCREEN */
+        .intro-screen {
+            text-align: center;
+        }
+
+        .intro-screen h1 {
+            font-size: 2.5rem;
+            color: #C41E3A;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .intro-screen .rose-icon {
+            font-size: 4rem;
+            margin: 20px 0;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .intro-screen p {
+            font-size: 1.1rem;
+            color: #6B4E4E;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .intro-screen .science-note {
+            background: #FFF0F3;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #E0A899;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .intro-screen .science-note strong {
+            color: #C41E3A;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #C41E3A 0%, #E0527D 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(196, 30, 58, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(196, 30, 58, 0.4);
+        }
+
+        /* QUIZ SCREEN */
+        .quiz-screen {
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #FFE4E9;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #C41E3A 0%, #E0527D 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+        }
+
+        .question-number {
+            color: #E0A899;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            color: #2C1810;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            background: #FFF5F5;
+            border: 2px solid #FFE4E9;
+            padding: 18px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .option:hover {
+            border-color: #E0A899;
+            background: white;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            border-color: #C41E3A;
+            background: #FFF0F3;
+            font-weight: bold;
+        }
+
+        /* RESULTS SCREEN */
+        .results-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .results-screen .rose-result {
+            font-size: 8rem;
+            margin: 20px 0;
+            animation: scaleIn 0.5s ease;
+        }
+
+        @keyframes scaleIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .results-screen h2 {
+            font-size: 2.5rem;
+            color: #C41E3A;
+            margin-bottom: 10px;
+        }
+
+        .results-screen .subtitle {
+            font-size: 1.3rem;
+            color: #6B4E4E;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .result-section {
+            background: #FFF5F5;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .result-section h3 {
+            color: #C41E3A;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result-section p {
+            line-height: 1.7;
+            color: #4A3636;
+            margin-bottom: 10px;
+        }
+
+        .result-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .result-section li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .result-section li:before {
+            content: "🌹";
+            position: absolute;
+            left: 0;
+        }
+
+        .traits-bars {
+            margin-top: 20px;
+        }
+
+        .trait {
+            margin-bottom: 15px;
+        }
+
+        .trait-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+            color: #6B4E4E;
+        }
+
+        .trait-bar {
+            height: 10px;
+            background: #FFE4E9;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .trait-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #C41E3A 0%, #E0527D 100%);
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        .share-section {
+            background: linear-gradient(135deg, #FFF0F3 0%, #FFE4E9 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+        }
+
+        .share-section h3 {
+            color: #C41E3A;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .share-btn {
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+        }
+
+        .share-twitter {
+            background: #1DA1F2;
+            color: white;
+        }
+
+        .share-whatsapp {
+            background: #25D366;
+            color: white;
+        }
+
+        .share-copy {
+            background: #E0A899;
+            color: white;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .branding {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #FFE4E9;
+            color: #9B7B7B;
+            font-size: 0.9rem;
+        }
+
+        .branding a {
+            color: #C41E3A;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .branding a:hover {
+            text-decoration: underline;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            .intro-screen h1 {
+                font-size: 2rem;
+            }
+
+            .question-text {
+                font-size: 1.2rem;
+            }
+
+            .results-screen h2 {
+                font-size: 2rem;
+            }
+
+            .results-screen .rose-result {
+                font-size: 6rem;
+            }
+
+            .share-buttons {
+                flex-direction: column;
+            }
+
+            .share-btn {
+                width: 100%;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- LANGUAGE TOGGLE -->
+    <div class="language-toggle">
+        <button class="lang-btn active" onclick="switchLanguage('en')" id="langEn">English</button>
+        <button class="lang-btn" onclick="switchLanguage('th')" id="langTh">ไทย</button>
+    </div>
+
+    <div class="container">
+        <!-- INTRO SCREEN -->
+        <div class="intro-screen" id="introScreen">
+            <h1>What Rose Color Are You? 🌹</h1>
+            <div class="rose-icon">🌹</div>
+            <p><strong>Finally know what your personality actually means.</strong></p>
+            <p>This isn't another random quiz — it's backed by color psychology and neuroscience. In 2 minutes, discover your true rose color and what it reveals about how you love, lead, and live.</p>
+            
+            <div class="science-note">
+                <strong>✨ Here's what you'll get:</strong><br>
+                • Your unique personality breakdown (energy, empathy, creativity)<br>
+                • Science-backed insights you can actually use<br>
+                • Compare with your partner (the fun part 😏)<br>
+                • A shareable result your friends will screenshot
+            </div>
+
+            <button class="btn" onclick="startQuiz()">Take the Quiz (2 min) 💝</button>
+        </div>
+
+        <!-- QUIZ SCREEN -->
+        <div class="quiz-screen" id="quizScreen">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+
+            <div class="question-container" id="questionContainer">
+                <div class="question-number" id="questionNumber">Question 1 of 12</div>
+                <div class="question-text" id="questionText"></div>
+                <div class="options" id="optionsContainer"></div>
+            </div>
+
+            <button class="btn" id="nextBtn" onclick="nextQuestion()" style="display: none;">Next Question →</button>
+        </div>
+
+        <!-- RESULTS SCREEN -->
+        <div class="results-screen" id="resultsScreen">
+            <div class="rose-result" id="roseEmoji"></div>
+            <h2 id="resultTitle"></h2>
+            <div class="subtitle" id="resultSubtitle"></div>
+
+            <div class="result-section">
+                <h3>🔬 The Science Behind Your Rose</h3>
+                <p id="scienceExplanation"></p>
+            </div>
+
+            <div class="result-section">
+                <h3>💫 Your Personality Traits</h3>
+                <div class="traits-bars" id="traitsContainer"></div>
+            </div>
+
+            <div class="result-section">
+                <h3>❤️ In Real Life</h3>
+                <ul id="realLifeTraits"></ul>
+            </div>
+
+            <div class="share-section">
+                <h3>❓ What Rose Color Is Your Partner?</h3>
+                <p style="color: #6B4E4E; margin-bottom: 15px;">Send them the quiz and compare your results!</p>
+                
+                <div class="share-buttons">
+                    <button class="share-btn share-twitter" onclick="shareTwitter()">Share on Twitter</button>
+                    <button class="share-btn share-whatsapp" onclick="shareWhatsApp()">Share on WhatsApp</button>
+                    <button class="share-btn share-copy" onclick="copyLink()">Copy Link</button>
+                </div>
+            </div>
+
+            <button class="btn" onclick="restartQuiz()">Take Quiz Again 🔄</button>
+
+            <div class="branding">
+                🍲 Cooked up by <a href="https://shabuzz.com" target="_blank">shabuzzlab</a><br>
+                The viral marketing lab for tech startups
+            </div>
+        </div>
+    </div>
+
+    <script src="quiz-data.js"></script>
+    <script src="quiz-data-thai.js"></script>
+    <script src="quiz-logic.js"></script>
+</body>
+</html>
