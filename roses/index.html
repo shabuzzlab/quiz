@@ -350,8 +350,23 @@
             font-family: 'Georgia', serif;
         }
 
+        .share-instagram {
+            background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+            color: white;
+        }
+
+        .share-tiktok {
+            background: #000000;
+            color: white;
+        }
+
         .share-twitter {
-            background: #1DA1F2;
+            background: #000000;
+            color: white;
+        }
+
+        .share-facebook {
+            background: #1877F2;
             color: white;
         }
 
@@ -493,13 +508,16 @@
             </div>
 
             <div class="share-section">
-                <h3>❓ What Rose Color Is Your Partner?</h3>
-                <p style="color: #6B4E4E; margin-bottom: 15px;">Send them the quiz and compare your results!</p>
+                <h3>🔥 Challenge Your Partner</h3>
+                <p style="color: #6B4E4E; margin-bottom: 15px;">Share your result and see if you're compatible (or totally opposite 😂)</p>
                 
                 <div class="share-buttons">
-                    <button class="share-btn share-twitter" onclick="shareTwitter()">Share on Twitter</button>
-                    <button class="share-btn share-whatsapp" onclick="shareWhatsApp()">Share on WhatsApp</button>
-                    <button class="share-btn share-copy" onclick="copyLink()">Copy Link</button>
+                    <button class="share-btn share-instagram" onclick="shareInstagram()">📸 Instagram Story</button>
+                    <button class="share-btn share-tiktok" onclick="shareTikTok()">🎵 TikTok</button>
+                    <button class="share-btn share-twitter" onclick="shareTwitter()">𝕏 Tweet</button>
+                    <button class="share-btn share-facebook" onclick="shareFacebook()">📘 Facebook</button>
+                    <button class="share-btn share-whatsapp" onclick="shareWhatsApp()">💬 WhatsApp</button>
+                    <button class="share-btn share-copy" onclick="copyLink()">🔗 Copy Link</button>
                 </div>
             </div>
 
@@ -512,8 +530,8 @@
         </div>
     </div>
 
-    <script src="quiz-data.js"></script>
-    <script src="quiz-data-thai.js"></script>
-    <script src="quiz-logic.js"></script>
+    <script src="./quiz-data.js"></script>
+    <script src="./quiz-data-thai.js"></script>
+    <script src="./quiz-logic.js"></script>
 </body>
 </html>

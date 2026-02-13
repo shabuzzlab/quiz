@@ -311,6 +311,24 @@ function showResults() {
 }
 
 // SHARE FUNCTIONS
+function shareInstagram() {
+    // Instagram doesn't support direct web sharing with text
+    // Copy link and prompt user to share to IG Story
+    const url = 'https://quiz.shabuzz.com/roses';
+    navigator.clipboard.writeText(url).then(() => {
+        alert('✅ Link copied!\n\nNow:\n1. Open Instagram\n2. Create a Story\n3. Add text/sticker\n4. Paste the link\n\nPro tip: Screenshot your result first! 📸');
+    });
+}
+
+function shareTikTok() {
+    // TikTok doesn't support direct web sharing
+    // Copy link and prompt user
+    const url = 'https://quiz.shabuzz.com/roses';
+    navigator.clipboard.writeText(url).then(() => {
+        alert('✅ Link copied!\n\nNow:\n1. Open TikTok\n2. Create a video about your result\n3. Paste link in caption or bio\n\n🔥 Make it go viral!');
+    });
+}
+
 function shareTwitter() {
     const resultColor = calculateResult();
     const result = roseResults[resultColor];
@@ -319,11 +337,29 @@ function shareTwitter() {
     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
 }
 
+function shareFacebook() {
+    const url = 'https://quiz.shabuzz.com/roses';
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+}
+
 function shareWhatsApp() {
     const resultColor = calculateResult();
     const result = roseResults[resultColor];
     const text = `I'm a ${result.title} ${result.emoji}\n\n${result.subtitle}\n\nWhat rose color are you? Take the quiz: https://quiz.shabuzz.com/roses`;
-    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+    
+    // Use Web Share API if available (better for mobile)
+    if (navigator.share) {
+        navigator.share({
+            title: 'What Rose Color Are You?',
+            text: text,
+            url: 'https://quiz.shabuzz.com/roses'
+        }).catch(() => {
+            // Fallback to WhatsApp direct
+            window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+        });
+    } else {
+        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+    }
 }
 
 function copyLink() {
@@ -331,7 +367,7 @@ function copyLink() {
     navigator.clipboard.writeText(url).then(() => {
         const btn = event.target;
         const originalText = btn.textContent;
-        btn.textContent = 'Link Copied! ✓';
+        btn.textContent = '✓ Copied!';
         setTimeout(() => {
             btn.textContent = originalText;
         }, 2000);
