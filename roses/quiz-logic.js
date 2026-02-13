@@ -278,6 +278,7 @@ function showResults() {
         const compatibilitySubtitle = document.querySelector('#compatibilitySection p');
         const partnerTitle = document.querySelector('.share-section h3');
         const partnerSubtitle = document.querySelector('.share-section p');
+        const screenshotDivider = document.getElementById('screenshotDivider');
         
         console.log('Thai elements found:', {scienceTitle, traitsTitle, realLifeTitle, compatibilityTitle}); // DEBUG
         
@@ -288,6 +289,7 @@ function showResults() {
         if (compatibilitySubtitle) compatibilitySubtitle.textContent = thaiTranslations.results.compatibilitySubtitle;
         if (partnerTitle) partnerTitle.textContent = thaiTranslations.results.partnerTitle;
         if (partnerSubtitle) partnerSubtitle.textContent = thaiTranslations.results.partnerSubtitle;
+        if (screenshotDivider) screenshotDivider.textContent = thaiTranslations.results.screenshotDivider;
         
         // Update share buttons - Keep in English for clarity
         const btnInstagram = document.querySelector('.share-instagram');
@@ -321,6 +323,7 @@ function showResults() {
         const compatibilitySubtitle = document.querySelector('#compatibilitySection p');
         const partnerTitle = document.querySelector('.share-section h3');
         const partnerSubtitle = document.querySelector('.share-section p');
+        const screenshotDivider = document.getElementById('screenshotDivider');
         
         console.log('English elements found:', {scienceTitle, traitsTitle, realLifeTitle, compatibilityTitle}); // DEBUG
         
@@ -329,8 +332,9 @@ function showResults() {
         if (realLifeTitle) realLifeTitle.textContent = "❤️ In Real Life";
         if (compatibilityTitle) compatibilityTitle.textContent = "💕 Which Rose Matches Yours?";
         if (compatibilitySubtitle) compatibilitySubtitle.textContent = "Send the quiz to your partner and find your compatibility!";
-        if (partnerTitle) partnerTitle.textContent = "🔥 Challenge Your Partner";
+        if (partnerTitle) partnerTitle.textContent = "💝 Share with Your Loved Ones";
         if (partnerSubtitle) partnerSubtitle.textContent = "Share your result and see if you're compatible (or totally opposite 😂)";
+        if (screenshotDivider) screenshotDivider.textContent = "📸 Screenshot above to share • Read full analysis below 👇";
         
         const btnInstagram = document.querySelector('.share-instagram');
         const btnTikTok = document.querySelector('.share-tiktok');
