@@ -31,12 +31,21 @@ function detectDefaultLanguage() {
 
 // INITIALIZE LANGUAGE ON PAGE LOAD
 window.addEventListener('DOMContentLoaded', function() {
-    // Set correct button state
-    document.getElementById('langEn').classList.toggle('active', currentLanguage === 'en');
-    document.getElementById('langTh').classList.toggle('active', currentLanguage === 'th');
-    
-    // Update intro screen to match detected language
-    updateIntroScreen();
+    try {
+        // Set correct button state
+        const langEnBtn = document.getElementById('langEn');
+        const langThBtn = document.getElementById('langTh');
+        
+        if (langEnBtn && langThBtn) {
+            langEnBtn.classList.toggle('active', currentLanguage === 'en');
+            langThBtn.classList.toggle('active', currentLanguage === 'th');
+            
+            // Update intro screen to match detected language
+            updateIntroScreen();
+        }
+    } catch (error) {
+        console.error('Initialization error:', error);
+    }
 });
 
 // LANGUAGE SWITCHING
@@ -183,7 +192,11 @@ function calculateResult() {
 
 // SHOW RESULTS
 function showResults() {
+    console.log('showResults called'); // DEBUG
+    
     const resultColor = calculateResult();
+    console.log('Result color:', resultColor); // DEBUG
+    
     const result = currentLanguage === 'th' 
         ? {
             emoji: roseResults[resultColor].emoji,
@@ -195,6 +208,8 @@ function showResults() {
             realLife: thaiTranslations.roses[resultColor].realLife
         }
         : roseResults[resultColor];
+    
+    console.log('Result object:', result); // DEBUG
     
     // Hide quiz screen
     document.getElementById('quizScreen').style.display = 'none';
